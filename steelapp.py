@@ -2230,7 +2230,7 @@ with tab_detail:
         flex_kpi_delta = f"철근비 ρ={res['rho']*100:.2f}% ≥ 최소 {res['rho_min']*100:.2f}% (만족)"
         flex_foot_col = "#137fec"
     elif res["min_rebar_4_3_ok"]:
-        flex_kpi_delta = f"ρ={res['rho']*100:.2f}% (4/3·As,req 예외규정 만족 OK)"
+        flex_kpi_delta = f"ρ={res['rho']*100:.2f}% (4/3·As,req 예외규정 만족)"
         flex_foot_col = "#137fec"
     else:
         flex_kpi_delta = f"ρ={res['rho']*100:.2f}% < 최소 {res['rho_min']*100:.2f}% (4/3규정 미달)"
@@ -2306,7 +2306,7 @@ with tab_detail:
             f'<div style="font-size:0.95rem; font-weight:800; color:#1e3a8a; margin-top:4px;">'
             f'현재 인장측 주근({res["tension_bars"]}-D{main_bar}, Ast={res["Ast"]:.0f} mm²)만으로 요구 전단마찰 철근량(Avf={res["Avf"]:.0f} mm²)을 만족하여 추가 보강근이 필요하지 않습니다.'
             f'</div></div>'
-            f'<div class="dw-decision-pill-ok">무보강 안전 (OK)</div>'
+            f'<div class="dw-decision-pill-ok">보강 불필요 (OK)</div>'
             f'</div>',
             unsafe_allow_html=True,
         )
@@ -2336,13 +2336,13 @@ with tab_detail:
             flex_badge_str = "점검 필요"
 
         if res["min_rebar_std_ok"]:
-            min_rebar_li = f'<li><b>최소철근량 일반식 (As,min):</b> {res["As_min"]:.0f} mm² vs 보유 {res["Ast"]:.0f} mm² (<b>만족 OK</b>)</li>'
+            min_rebar_li = f'<li><b>최소철근량 일반식 (As,min):</b> {res["As_min"]:.0f} mm² vs 보유 {res["Ast"]:.0f} mm² (<b>만족</b>)</li>'
         else:
             min_rebar_li = (
                 f'<li><b>최소철근량 일반식 (As,min):</b> {res["As_min"]:.0f} mm² vs 보유 {res["Ast"]:.0f} mm² (대단면 예외규정 적용 대상)</li>'
                 f'<li><b>KDS 14 20 20 (4.2.2(3)) 예외규정 (As ≥ 4/3·As,req):</b> '
                 f'소요철근량({res["As_req"]:.0f} mm²)의 4/3배({res["As_min_4_3"]:.0f} mm²) 이상 배근 '
-                f'(<b>{"만족 OK" if res["min_rebar_4_3_ok"] else "미달 NG"}</b> — 허용 최대 As,req ≤ {res["As_req_allow_4_3"]:.0f} mm² / Mu ≤ {res["Mu_allow_4_3"]:.1f} kN·m)</li>'
+                f'(<b>{"만족" if res["min_rebar_4_3_ok"] else "미달 NG"}</b> — 허용 최대 As,req ≤ {res["As_req_allow_4_3"]:.0f} mm² / Mu ≤ {res["Mu_allow_4_3"]:.1f} kN·m)</li>'
             )
 
         st.markdown(
